@@ -26,7 +26,7 @@ class MyScene extends Phaser.Scene {
     }
     
     create() {
-         this.add.image(1200, 600, 'background');
+         this.add.image(600, 300, 'background');
         // Create a sprite at the center of the screen using the 'logo' image.
         this.bouncy = this.physics.add.sprite( this.cameras.main.centerX, this.cameras.main.centerX, 'logo' );
         
