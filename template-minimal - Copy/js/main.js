@@ -26,7 +26,7 @@ class MyScene extends Phaser.Scene {
     }
     
     create() {
-         this.add.image(800, 600, 'background');
+         this.add.image(1300, 600, 'background');
         // Create a sprite at the center of the screen using the 'logo' image.
         this.bouncy = this.physics.add.sprite( this.cameras.main.centerX, this.cameras.main.centerX, 'logo' );
         
@@ -59,7 +59,7 @@ class MyScene extends Phaser.Scene {
 const game = new Phaser.Game({
     type: Phaser.AUTO,
     parent: 'game',
-    width: 800,
+    width: 1300,
     height: 600,
     scene: MyScene,
     physics: { default: 'arcade' },
