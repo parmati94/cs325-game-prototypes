@@ -22,9 +22,11 @@ class MyScene extends Phaser.Scene {
     preload() {
         // Load an image and call it 'logo'.
         this.load.image( 'logo', 'assets/myfaceSMALLER.png' );
+        this.load.image('background', 'assets/space_background.jpg')
     }
     
     create() {
+         this.add.image(800, 600, 'background');
         // Create a sprite at the center of the screen using the 'logo' image.
         this.bouncy = this.physics.add.sprite( this.cameras.main.centerX, this.cameras.main.centerX, 'logo' );
         
@@ -39,7 +41,7 @@ class MyScene extends Phaser.Scene {
         
         // Add some text using a CSS style.
         // Center it in X, and position its top 15 pixels from the top of the world.
-        let style = { font: "25px Verdana", fill: "#9999ff", align: "center" };
+        let style = { font: "25px Verdana", fill: "#7E1FFF", align: "center" };
         let text = this.add.text( this.cameras.main.centerX, 15, "Hello, Paul.", style );
         text.setOrigin( 0.5, 0.0 );
     }
