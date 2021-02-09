@@ -36,7 +36,6 @@ class MyScene extends Phaser.Scene {
     var sprite = this.add.sprite(640, 360, 'bg').setInteractive();
 
     sprite.on('pointerdown', function (event) {
-        meow.play();
         this.setTint(0x6C07F6);
 
     });

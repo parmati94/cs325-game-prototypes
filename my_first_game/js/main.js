@@ -20,12 +20,18 @@ class MyScene extends Phaser.Scene {
     }
     
     preload() {
+
+        this.load.audio('meow', [
+            'assets/meow.wav'
+        ]);
         // Load an image and call it 'logo'.
         this.load.image( 'logo', 'assets/myfaceSMALLER.png' );
         this.load.image('background', 'assets/space_background.jpg')
     }
     
     create() {
+
+        
          //this.add.image(640, 360, 'background');
         // Create a sprite at the center of the screen using the 'logo' image.
         this.bouncy = this.physics.add.sprite( this.cameras.main.centerX, this.cameras.main.centerX, 'logo' );
