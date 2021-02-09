@@ -26,7 +26,7 @@ class MyScene extends Phaser.Scene {
     }
     
     create() {
-         this.add.image(640, 360, 'background');
+         //this.add.image(640, 360, 'background');
         // Create a sprite at the center of the screen using the 'logo' image.
         this.bouncy = this.physics.add.sprite( this.cameras.main.centerX, this.cameras.main.centerX, 'logo' );
         
@@ -47,11 +47,7 @@ class MyScene extends Phaser.Scene {
     }
     
     update() {
-        // Accelerate the 'logo' sprite towards the cursor,
-        // accelerating at 500 pixels/second and moving no faster than 500 pixels/second
-        // in X or Y.
-        // This function returns the rotation angle that makes it visually match its
-        // new trajectory.
+      
         this.bouncy.rotation = this.physics.accelerateToObject( this.bouncy, this.input.activePointer, 500, 500, 500 );
     }
 }
