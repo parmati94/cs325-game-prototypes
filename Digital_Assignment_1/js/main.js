@@ -2,6 +2,7 @@ import "./phaser.js";
 
 var config = {
     type: Phaser.AUTO,
+    parent: 'game',
     width: 800,
     height: 600,
     physics: {
@@ -55,7 +56,7 @@ function preload ()
     this.load.image('ground', 'assets1/platform.png');
     this.load.image('pineapple', 'assets/pineapplecut.png');
     this.load.image('bomb', 'assets/planktoncut.png');
-    this.load.spritesheet('sponge', 'assets/spritesheet2.png', { frameWidth: 34, frameHeight: 41 });
+    this.load.spritesheet('sponge', 'assets/spritesheet5.png', { frameWidth: 37, frameHeight: 42 });
 
 }
 
@@ -85,6 +86,7 @@ function create ()
     platforms.create(600, 400, 'ground');
     platforms.create(50, 250, 'ground');
     platforms.create(750, 220, 'ground');
+    platforms.create(-75, 100, 'ground');
 
     // The player and its settings
     player = this.physics.add.sprite(100, 450, 'sponge');
@@ -96,15 +98,15 @@ function create ()
     //  Our player animations, turning, walking left and walking right.
     this.anims.create({
         key: 'left',
-        frames: this.anims.generateFrameNumbers('sponge', { start: 6, end: 9 }),
+        frames: this.anims.generateFrameNumbers('sponge', { start: 8, end: 10 }),
         frameRate: 5,
         repeat: -1
     });
 
     this.anims.create({
         key: 'turn',
-        frames: [ { key: 'sponge', frame: 5 } ],
-        frameRate: 20
+        frames: [ { key: 'sponge', frame: 7 } ],
+        frameRate: 10
     });
 
     this.anims.create({
