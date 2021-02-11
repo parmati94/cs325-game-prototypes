@@ -73,6 +73,10 @@ function create ()
     yippee = this.sound.add('yippee');
 
     background.setVolume(0.45);
+    pickup.setVolume(0.7);
+    jump.setVolume(0.7);
+    yippee.setVolume(0.7);
+    scream.setVolume(0.7);
     background.play();
 
     //  The platforms group contains the ground and the 2 ledges we can jump on
