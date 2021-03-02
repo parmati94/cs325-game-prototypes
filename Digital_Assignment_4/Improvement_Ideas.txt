@@ -1,0 +1,6 @@
+Improvements: 
+
+ - Dynamic damage text
+ - Short timer between attack/defend/heal events
+ - Shield that appears when player is in "DEFEND" mode
+- Add "Special Attack" button that each player can use once per round 	that will do between 10 - 50 damage
