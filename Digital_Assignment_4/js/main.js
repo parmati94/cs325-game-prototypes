@@ -38,7 +38,9 @@ var monsterdefend = false;
 var spongedamage, monsterdamage;
 var spongescream, monsterscream;
 var monsterheal, spongeheal;
-var randomtext;
+var timedEvent;
+var monstershield, spongeshield;
+
 
 
 
@@ -66,8 +68,10 @@ function preload ()
     this.load.image('spongehealbutton', 'assets/sponge_heal_button.png');
     this.load.image('monsterhealbutton', 'assets/monster_heal_button.png');
     this.load.image('test', 'assets/test.png');
+    this.load.spritesheet('spongeshield', 'assets/spongeshield.png', { frameWidth: 779, frameHeight: 789 });
+    this.load.spritesheet('monstershield', 'assets/monstershield.png', { frameWidth: 779, frameHeight: 789 });
     this.load.spritesheet('sponge', 'assets/spongebob.png', { frameWidth: 450, frameHeight: 580 });
-    this.load.spritesheet('monster', 'assets/monster.png', { frameWidth: 450, frameHeight: 583 });
+    this.load.spritesheet('monster', 'assets/monster.png', { frameWidth: 450, frameHeight: 580 });
 
 
 }
@@ -82,6 +86,7 @@ function create ()
     this.monsterdefendbutton = this.add.image(795, 700, 'monsterdefendbutton');
     this.spongehealbutton = this.add.image(65, 700, 'spongehealbutton');
     this.monsterhealbutton = this.add.image(1185, 700, 'monsterhealbutton');
+    
 
     this.spongebutton.setInteractive();
     this.monsterbutton.setInteractive();
@@ -107,7 +112,7 @@ function create ()
     spongeintro.play();
     monsterintro.play();
 
-    //  The platforms group contains the ground and the 2 ledges we can jump on
+   
     platforms = this.physics.add.staticGroup();
 
     //  Here we create the ground.
@@ -118,6 +123,16 @@ function create ()
     // The player and its settings
     player1 = this.physics.add.sprite(335, 0, 'sponge');
     player2 = this.physics.add.sprite(1000, 0, 'monster');
+
+    monstershield = this.add.sprite(800, 450, 'monstershield').setAlpha(0);
+    spongeshield = this.add.sprite(500, 450, 'spongeshield').setAlpha(0);
+    //this.monstershield = setInteractive();
+    //this.monstershield = setInteractive();
+    //monstershield.alpha = 0;
+    //this.monstershield = setInteractive();
+    //this.spongeshield = setInteractive();
+    
+    
 
     //  Player physics properties. Give the little guy a slight bounce.
     player1.setBounce(0.5);
@@ -135,53 +150,55 @@ function create ()
     //  The score
     hptext1 = this.add.text(200, 50, 'HP: ' + hp1, { fontSize: '32px', fill: '#fffd00', fontFamily: 'Akaya Kanadaka'  });
     hptext2 = this.add.text(900, 50, 'HP: ' + hp2, { fontSize: '32px', fill: '#db0000', fontFamily: 'Akaya Kanadaka' });
-    spongedamage = this.add.text( 375, 85, '').setFill('#db0000').setFontSize(45).setFontFamily("Akaya Kanadaka").setInteractive();   
+    spongedamage = this.add.text( 375, 85, '').setFill('#db0000').setFontSize(120).setFontFamily("Akaya Kanadaka").setInteractive();   
 
-    monsterdamage = this.add.text( 775, 100, '').setFill('#db0000').setFontSize(45).setFontFamily("Akaya Kanadaka").setInteractive();
+    monsterdamage = this.add.text( 775, 100, '').setFill('#db0000').setFontSize(120).setFontFamily("Akaya Kanadaka").setInteractive();
 
-    spongeheal = this.add.text( 375, 85, '').setFill('#48f611').setFontSize(45).setFontFamily("Akaya Kanadaka").setInteractive();
+    spongeheal = this.add.text( 375, 85, '').setFill('#48f611').setFontSize(120).setFontFamily("Akaya Kanadaka").setInteractive();
 
-    monsterheal = this.add.text( 775, 100, '').setFill('#48f611').setFontSize(45).setFontFamily("Akaya Kanadaka").setInteractive();
+    monsterheal = this.add.text( 775, 100, '').setFill('#48f611').setFontSize(120).setFontFamily("Akaya Kanadaka").setInteractive();
 
-    randomtext = this.add.text( 550, 100, 'PLZ WERK').setFill('#db0000').setFontSize(45).setFontFamily("Akaya Kanadaka").setInteractive();
     
+
+  /*  this.tweens.add({
+        targets: monsterdamage,
+        alpha: 0,
+        duration: 5000,
+        ease: 'Power2',
+    },);
+    */
+
+
+   this.time.addEvent({ delay: 200, callback: onEvent1, callbackScope: this, loop: true, repeat: 1000}); 
+   this.time.addEvent({ delay: 200, callback: onEvent2, callbackScope: this, loop: true, repeat: 1000}); 
+   this.time.addEvent({ delay: 200, callback: onEvent3, callbackScope: this, loop: true, repeat: 1000}); 
+   this.time.addEvent({ delay: 200, callback: onEvent4, callbackScope: this, loop: true, repeat: 1000}); 
+   //this.time.addEvent({ delay: 200, callback: onEvent5, callbackScope: this, loop: true, repeat: 1000}); 
+   //this.time.addEvent({ delay: 200, callback: onEvent6, callbackScope: this, loop: true, repeat: 1000}); 
+   
 
     //  Collide the player and the stars with the platforms
     this.physics.add.collider(player1, platforms);
     this.physics.add.collider(player2, platforms);
-    
-    this.tweens.add({
-        targets: randomtext,
-        alpha: 0,
-        duration: 2000,
-        ease: 'Power2'
-    },); 
-
-    this.tweens.add({
-        targets: monsterdamage,
-        alpha: 0,
-        duration: 5000,
-        ease: 'Power2'
-    },); 
-
-  
-   
-    
 
     
         this.spongebutton.on( 'pointerdown', function( pointer ) {
+              
             if (p1turn){
+                
                 this.scene.cameras.main.shake(100);
-                monsterdamage.set
+                monsterdamage.alpha = 1;
                 spongeClick();
             }
             
             });
+
     
     
         this.monsterbutton.on( 'pointerdown', function( pointer ) {
             if (p2turn){
                 this.scene.cameras.main.shake(100);
+                spongedamage.alpha = 1;
                 monsterClick();
             }
             });
@@ -189,6 +206,7 @@ function create ()
         this.spongedefendbutton.on( 'pointerdown', function( pointer ) {
             if (p1turn){
                     this.scene.cameras.main.shake(100);
+                    spongedamage.alpha = 1;
                     spongeDefendClick();
             }
             });
@@ -197,6 +215,7 @@ function create ()
         this.monsterdefendbutton.on( 'pointerdown', function( pointer ) {
             if (p2turn){
                     this.scene.cameras.main.shake(100);
+                    monsterdamage.alpha = 1;
                     monsterDefendClick();
             }
             });
@@ -204,6 +223,7 @@ function create ()
         this.spongehealbutton.on( 'pointerdown', function( pointer ) {
             if (p1turn){
                 this.scene.cameras.main.shake(100);
+                spongeheal.alpha = 1;
                 spongeHealClick();
             }
             });
@@ -212,9 +232,14 @@ function create ()
         this.monsterhealbutton.on( 'pointerdown', function( pointer ) {
             if (p2turn){
                 this.scene.cameras.main.shake(100);
+                monsterheal.alpha = 1;
                 monsterHealClick();
             }
             });
+    
+
+
+
 
     
     
@@ -222,7 +247,7 @@ function create ()
 
 function update ()
 {
-    
+     
 
     
 }
@@ -233,11 +258,13 @@ function update ()
 function spongeClick(){
     spongehit1.play();
     hit.play();
+    
 
     var rand = Math.floor((Math.random() * 20) + 1);
     var halved = rand/2;
-    spongedamage.setText('');
+    spongedamage.setText('').setFontSize(120);
     monsterheal.setText('');
+    monstershield.setAlpha(0);
     var zero = false;
     var prehp = hp2;
 
@@ -252,6 +279,8 @@ function spongeClick(){
         
     }
 
+     
+
     if (!monsterdefend && !zero){
         hp2 -= rand;
         monsterdamage.setText('-' + rand);
@@ -265,7 +294,7 @@ function spongeClick(){
     
     hptext2.setText('HP: ' + hp2);
     
-
+   
 
     if(monsterdefend)
         monsterdefend = false;
@@ -273,6 +302,9 @@ function spongeClick(){
 
     p1turn = false;
     p2turn = true;
+    
+    
+
 
     
 }
@@ -284,8 +316,9 @@ function monsterClick(){
 
     var rand = Math.floor((Math.random() * 20) + 1);
     var halved = rand/2;
-    monsterdamage.setText('');
+    monsterdamage.setText('').setFontSize(120);
     spongeheal.setText('');
+    spongeshield.setAlpha(0);
     var zero = false;
     var prehp = hp1;
 
@@ -318,16 +351,20 @@ function monsterClick(){
 
     p2turn = false;
     p1turn = true;
+
+ 
     
 }
 
 function spongeDefendClick(){
     defend.play();
+    spongeshield.setAlpha(1);
+    monstershield.setAlpha(0);
 
     spongedefend = true;
     monsterdamage.setText('');
     monsterheal.setText('');
-    spongedamage.setText('DEFENSE MODE');
+    spongedamage.setText('DEFENSE MODE').setFontSize(45);
 
     if (monsterdefend)
         monsterdefend = false;
@@ -339,11 +376,13 @@ function spongeDefendClick(){
 
 function monsterDefendClick(){
     defend.play();
+    monstershield.setAlpha(1);
 
     monsterdefend = true; 
     spongedamage.setText('');
     spongeheal.setText('');
-    monsterdamage.setText('DEFENSE MODE');
+    spongeshield.setAlpha(0);
+    monsterdamage.setText('DEFENSE MODE').setFontSize(45);
 
     if(spongedefend)
         spongedefend = false;
@@ -357,9 +396,10 @@ function spongeHealClick(){
     heal.play();
 
     var rand = Math.floor((Math.random() * 12) + 1);
-    monsterdamage.setText('');
-    spongedamage.setText('');
+    monsterdamage.setText('').setFontSize(120);
+    spongedamage.setText('').setFontSize(120);
     monsterheal.setText('');
+    monstershield.setAlpha(0);
     var prehp = hp1;
 
     if (hp1 + rand <= 100)
@@ -385,9 +425,10 @@ function monsterHealClick(){
     heal.play();
 
     var rand = Math.floor((Math.random() * 12) + 1);
-    monsterdamage.setText('');
-    spongedamage.setText('');
+    monsterdamage.setText('').setFontSize(120);
+    spongedamage.setText('').setFontSize(120);
     spongeheal.setText('');
+    spongeshield.setAlpha(0);
     var prehp = hp2;
 
     if (hp2 + rand <= 100)
@@ -426,8 +467,70 @@ function monsterDeath() {
     this.physics.pause;  
 }
 
-function tweenTest(){
+function onEvent1(){
+    var c = 0;
+    c++;
+    monsterdamage.alpha -= 0.2;
     
+    if (c === 50){
+        
+        
+    }
+}
+
+function onEvent2(){
+    var c = 0;
+    c++;
+    spongedamage.alpha -= 0.2;
+
+    if (c === 50){
+        
+        
+    }
+}
+
+function onEvent3(){
+    var c = 0;
+    c++;
+    monsterheal.alpha -= 0.2;
+
+    if (c === 50){
+        
+        
+    }
+}
+
+function onEvent4(){
+    var c = 0;
+    c++;
+    spongeheal.alpha -= 0.2;
+
+    if (c === 50){
+        
+        
+    }
+}
+
+function onEvent5(){
+    var c = 0;
+    c++;
+    monsterdefend.alpha -= 0.2;
+
+    if (c === 50){
+        
+        
+    }
+}
+
+function onEvent6(){
+    var c = 0;
+    c++;
+    spongedefend.alpha -= 0.2;
+
+    if (c === 50){
+        
+        
+    }
 }
 
 
