@@ -31,7 +31,7 @@ var hptext1, hptext2;
 var background;
 var monsterintro, spongeintro;
 var spongehit1, monsterhit1;
-var pwned, pwnedimage;
+var pwnedsponge, pwnedmonster, pwnedimage;
 var hit;
 var heal, defend;
 var spongedefend = false;
@@ -59,7 +59,8 @@ function preload ()
     this.load.audio('defend', ['assets/defend.wav']);
     this.load.audio('spongescream', ['assets/spongescream.mp3']);
     this.load.audio('monsterscream', ['assets/monsterintro.mp3']);
-    this.load.audio('pwned', ['assets/pwned.mp3']);
+    this.load.audio('pwnedsponge', ['assets/pwnedsponge.mp3']);
+    this.load.audio('pwnedmonster', ['assets/pwnedmonster.mp3']);
 
     this.load.image('ground', 'assets/invplatform.png');
     this.load.image('bg', 'assets/stage.png');
@@ -109,7 +110,8 @@ function create ()
     defend = this.sound.add('defend');
     spongescream = this.sound.add('spongescream');
     monsterscream = this.sound.add('monsterscream');
-    pwned = this.sound.add('pwned');
+    pwnedsponge = this.sound.add('pwnedsponge');
+    pwnedmonster = this.sound.add('pwnedmonster');
 
     background.setVolume(0.3);
     spongescream.setVolume(0.2);
@@ -134,7 +136,7 @@ function create ()
 
     monstershield = this.add.sprite(800, 450, 'monstershield').setAlpha(0);
     spongeshield = this.add.sprite(500, 450, 'spongeshield').setAlpha(0);
-    pwnedimage = this.add.image(600, 400, 'pwnedimage').setAlpha(0);
+    pwnedimage = this.add.image(650, 400, 'pwnedimage').setAlpha(0);
     //this.monstershield = setInteractive();
     //this.monstershield = setInteractive();
     //monstershield.alpha = 0;
@@ -464,7 +466,7 @@ function spongeDeath () {
     player1.setTint(0xff0000);
     spongescream.play();
     background.stop();
-    pwned.play();
+    pwnedmonster.play();
     pwnedimage.alpha = 1;
     player1.y += 30;
     this.physics.pause;
@@ -475,7 +477,7 @@ function monsterDeath() {
     player2.setTint(0xff0000);
     monsterscream.play();
     background.stop();
-    pwned.play();
+    pwnedsponge.play();
     pwnedimage.alpha = 1;
     player2.y += 30;
     
