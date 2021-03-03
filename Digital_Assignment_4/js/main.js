@@ -25,6 +25,8 @@ var cursors;
 var gameOver = false;
 var p1turn = true;
 var p2turn = true;
+var p1spec = false;
+var p2spec = false;
 var hp1 = 100;
 var hp2 = 100;
 var hptext1, hptext2;
@@ -32,7 +34,7 @@ var background;
 var monsterintro, spongeintro;
 var spongehit1, monsterhit1;
 var pwnedsponge, pwnedmonster, pwnedimage;
-var hit;
+var hit, specialhit;
 var heal, defend;
 var spongedefend = false;
 var monsterdefend = false;
@@ -41,6 +43,7 @@ var spongescream, monsterscream;
 var monsterheal, spongeheal;
 var timedEvent;
 var monstershield, spongeshield;
+var number = 2;
 
 
 
@@ -55,6 +58,7 @@ function preload ()
     this.load.audio('spongeintro', ['assets/spongeintro.mp3']);
     this.load.audio('monsterintro', ['assets/monsterintro.mp3']);
     this.load.audio('hit', ['assets/hit.mp3']);
+    this.load.audio('specialhit', ['assets/specialhit.mp3']);
     this.load.audio('heal', ['assets/heal.wav']);
     this.load.audio('defend', ['assets/defend.wav']);
     this.load.audio('spongescream', ['assets/spongescream.mp3']);
@@ -66,6 +70,8 @@ function preload ()
     this.load.image('bg', 'assets/stage.png');
     this.load.image('spongebutton', 'assets/sponge_attack_button.png');
     this.load.image('monsterbutton', 'assets/monster_attack_button.png');
+    this.load.image('spongespecialbutton', 'assets/sponge_special_button.png');
+    this.load.image('monsterspecialbutton', 'assets/monster_special_button.png');
     this.load.image('spongedefendbutton', 'assets/sponge_defend_button.png');
     this.load.image('monsterdefendbutton', 'assets/monster_defend_button.png');
     this.load.image('spongehealbutton', 'assets/sponge_heal_button.png');
@@ -87,9 +93,11 @@ function create ()
     this.spongebutton = this.add.image(190, 750, 'spongebutton');
     this.monsterbutton = this.add.image(980, 750, 'monsterbutton');
     this.spongedefendbutton = this.add.image(400, 700, 'spongedefendbutton');
-    this.monsterdefendbutton = this.add.image(795, 700, 'monsterdefendbutton');
+    this.monsterdefendbutton = this.add.image(775, 700, 'monsterdefendbutton');
     this.spongehealbutton = this.add.image(65, 700, 'spongehealbutton');
     this.monsterhealbutton = this.add.image(1185, 700, 'monsterhealbutton');
+    this.spongespecialbutton = this.add.image(400, 750, 'spongespecialbutton');
+    this.monsterspecialbutton = this.add.image(775, 750, 'monsterspecialbutton');
     
     
 
@@ -99,11 +107,14 @@ function create ()
     this.monsterdefendbutton.setInteractive();
     this.spongehealbutton.setInteractive();
     this.monsterhealbutton.setInteractive();
+    this.spongespecialbutton.setInteractive();
+    this.monsterspecialbutton.setInteractive();
 
     background = this.sound.add('music');
     monsterintro = this.sound.add('monsterintro');
     spongeintro = this.sound.add('spongeintro');
     hit = this.sound.add('hit');
+    specialhit = this.sound.add('specialhit');
     spongehit1 = this.sound.add('spongehit1');
     monsterhit1 = this.sound.add('monsterhit1');
     heal = this.sound.add('heal');
@@ -212,7 +223,7 @@ function create ()
                 spongedamage.alpha = 1;
                 monsterClick();
             }
-            });
+        });
 
         this.spongedefendbutton.on( 'pointerdown', function( pointer ) {
             if (p1turn){
@@ -220,7 +231,7 @@ function create ()
                     spongedamage.alpha = 1;
                     spongeDefendClick();
             }
-            });
+        });
         
         
         this.monsterdefendbutton.on( 'pointerdown', function( pointer ) {
@@ -229,7 +240,7 @@ function create ()
                     monsterdamage.alpha = 1;
                     monsterDefendClick();
             }
-            });
+        });
 
         this.spongehealbutton.on( 'pointerdown', function( pointer ) {
             if (p1turn){
@@ -237,7 +248,7 @@ function create ()
                 spongeheal.alpha = 1;
                 spongeHealClick();
             }
-            });
+        });
             
             
         this.monsterhealbutton.on( 'pointerdown', function( pointer ) {
@@ -246,7 +257,23 @@ function create ()
                 monsterheal.alpha = 1;
                 monsterHealClick();
             }
-            });
+        });
+
+        this.monsterspecialbutton.on( 'pointerdown', function( pointer ) {
+            if (p2turn && !p2spec){
+                this.scene.cameras.main.shake(100);
+                spongedamage.alpha = 1;
+                monsterSpecialClick();
+            }
+        });
+        
+        this.spongespecialbutton.on( 'pointerdown', function( pointer ) {
+            if (p1turn && !p1spec){
+                this.scene.cameras.main.shake(100);
+                monsterdamage.alpha = 1;
+                spongeSpecialClick();
+            }
+        });
     
 
 
@@ -269,9 +296,9 @@ function update ()
 function spongeClick(){
     spongehit1.play();
     hit.play();
+    var rand = Math.floor((Math.random() * 20) + 1);
     
 
-    var rand = Math.floor((Math.random() * 20) + 1);
     var halved = rand/2;
     spongedamage.setText('').setFontSize(120);
     monsterheal.setText('');
@@ -406,7 +433,7 @@ function monsterDefendClick(){
 function spongeHealClick(){
     heal.play();
 
-    var rand = Math.floor((Math.random() * 12) + 1);
+    var rand = Math.floor((Math.random() * 17) + 1);
     monsterdamage.setText('').setFontSize(120);
     spongedamage.setText('').setFontSize(120);
     monsterheal.setText('');
@@ -435,7 +462,7 @@ function spongeHealClick(){
 function monsterHealClick(){
     heal.play();
 
-    var rand = Math.floor((Math.random() * 12) + 1);
+    var rand = Math.floor((Math.random() * 17) + 1);
     monsterdamage.setText('').setFontSize(120);
     spongedamage.setText('').setFontSize(120);
     spongeheal.setText('');
@@ -459,6 +486,95 @@ function monsterHealClick(){
     
     p2turn = false;
     p1turn = true;
+}
+
+function spongeSpecialClick(){
+    p1spec = true;
+    spongehit1.play();
+    specialhit.play();
+    var rand = Math.floor((Math.random() * 40) + 10);
+    
+
+    var halved = rand/2;
+    spongedamage.setText('').setFontSize(120);
+    monsterheal.setText('');
+    monstershield.setAlpha(0);
+    var zero = false;
+    var prehp = hp2;
+
+    if (hp2 - rand <= 0){
+        zero = true;
+        hp2 = 0;
+        rand = prehp - hp2;
+        monsterdamage.setText('-' + (rand));
+        hptext2.setText('HP: ' + hp2);
+        monsterDeath();
+        gameOver = true;
+        
+    }
+
+     
+
+    if (!zero){
+        hp2 -= rand;
+        monsterdamage.setText('-' + rand);
+    }
+
+
+    
+    hptext2.setText('HP: ' + hp2);
+    
+   
+
+    if(monsterdefend)
+        monsterdefend = false;
+    
+
+    p1turn = false;
+    p2turn = true;
+}
+
+function monsterSpecialClick(){
+    p2spec = true;
+    monsterhit1.play();
+    specialhit.play();
+
+
+    var rand = Math.floor((Math.random() * 40) + 10);
+    var halved = rand/2;
+    monsterdamage.setText('').setFontSize(120);
+    spongeheal.setText('');
+    spongeshield.setAlpha(0);
+    var zero = false;
+    var prehp = hp1;
+
+    if (hp1 - rand <= 0){
+        zero = true;
+        hp1 = 0;
+        rand = prehp - hp1;
+        spongedamage.setText('-' + rand);
+        hptext1.setText('HP: ' + hp1);
+        spongeDeath();
+        gameOver = true;
+    }
+
+    if (!zero){
+        hp1 -= rand;
+        spongedamage.setText('-' + rand);
+    }
+
+
+    hptext1.setText('HP: ' + hp1);
+
+    
+
+    if(spongedefend)
+        spongedefend = false;
+    
+
+    p2turn = false;
+    p1turn = true;
+
 }
 
 

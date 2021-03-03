@@ -6,3 +6,11 @@ Improvements:
 - Add "Special Attack" button that each player can use once per round 	that will do between 10 - 50 damage
 
 -change defense mode for spognebob to yellow 
+
+Made: 
+	-Dynamic/fading damage text
+	- "PWNED" at game end with per-winner voice over
+	- Shield appears on defense
+ 	- Added special attack button
+	- Slight buff to "Heal"
+	
