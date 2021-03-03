@@ -31,6 +31,7 @@ var hptext1, hptext2;
 var background;
 var monsterintro, spongeintro;
 var spongehit1, monsterhit1;
+var pwned, pwnedimage;
 var hit;
 var heal, defend;
 var spongedefend = false;
@@ -58,6 +59,7 @@ function preload ()
     this.load.audio('defend', ['assets/defend.wav']);
     this.load.audio('spongescream', ['assets/spongescream.mp3']);
     this.load.audio('monsterscream', ['assets/monsterintro.mp3']);
+    this.load.audio('pwned', ['assets/pwned.mp3']);
 
     this.load.image('ground', 'assets/invplatform.png');
     this.load.image('bg', 'assets/stage.png');
@@ -68,6 +70,7 @@ function preload ()
     this.load.image('spongehealbutton', 'assets/sponge_heal_button.png');
     this.load.image('monsterhealbutton', 'assets/monster_heal_button.png');
     this.load.image('test', 'assets/test.png');
+    this.load.image('pwnedimage', 'assets/pwnedimage.png');
     this.load.spritesheet('spongeshield', 'assets/spongeshield.png', { frameWidth: 779, frameHeight: 789 });
     this.load.spritesheet('monstershield', 'assets/monstershield.png', { frameWidth: 779, frameHeight: 789 });
     this.load.spritesheet('sponge', 'assets/spongebob.png', { frameWidth: 450, frameHeight: 580 });
@@ -87,6 +90,7 @@ function create ()
     this.spongehealbutton = this.add.image(65, 700, 'spongehealbutton');
     this.monsterhealbutton = this.add.image(1185, 700, 'monsterhealbutton');
     
+    
 
     this.spongebutton.setInteractive();
     this.monsterbutton.setInteractive();
@@ -105,9 +109,13 @@ function create ()
     defend = this.sound.add('defend');
     spongescream = this.sound.add('spongescream');
     monsterscream = this.sound.add('monsterscream');
+    pwned = this.sound.add('pwned');
 
     background.setVolume(0.3);
+    spongescream.setVolume(0.2);
+    monsterscream.setVolume(0.2);
 
+    
     background.play();
     spongeintro.play();
     monsterintro.play();
@@ -126,6 +134,7 @@ function create ()
 
     monstershield = this.add.sprite(800, 450, 'monstershield').setAlpha(0);
     spongeshield = this.add.sprite(500, 450, 'spongeshield').setAlpha(0);
+    pwnedimage = this.add.image(600, 400, 'pwnedimage').setAlpha(0);
     //this.monstershield = setInteractive();
     //this.monstershield = setInteractive();
     //monstershield.alpha = 0;
@@ -455,16 +464,23 @@ function spongeDeath () {
     player1.setTint(0xff0000);
     spongescream.play();
     background.stop();
+    pwned.play();
+    pwnedimage.alpha = 1;
     player1.y += 30;
-    this.physics.pause;   
+    this.physics.pause;
+       
   }
 
 function monsterDeath() {
     player2.setTint(0xff0000);
     monsterscream.play();
     background.stop();
+    pwned.play();
+    pwnedimage.alpha = 1;
     player2.y += 30;
-    this.physics.pause;  
+    
+    this.physics.pause; 
+     
 }
 
 function onEvent1(){
