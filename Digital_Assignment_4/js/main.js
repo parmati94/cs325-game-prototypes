@@ -202,7 +202,7 @@ function create ()
     //  Collide the player and the stars with the platforms
     this.physics.add.collider(player1, platforms);
     this.physics.add.collider(player2, platforms);
-
+    
     
         this.spongebutton.on( 'pointerdown', function( pointer ) {
               
@@ -579,17 +579,30 @@ function monsterSpecialClick(){
 
 
 function spongeDeath () {
+    //this.spongebutton.setPosition(2000,2000);
     player1.setTint(0xff0000);
     spongescream.play();
     background.stop();
     pwnedmonster.play();
     pwnedimage.alpha = 1;
     player1.y += 30;
-    this.physics.pause;
-       
+    //this.physics.pause;
+
+    /*
+    this.spongebutton.setInteractive(false);
+    this.monsterbutton.setInteractive(false);
+    this.spongedefendbutton.setInteractive(false);
+    this.monsterdefendbutton.setInteractive(false);
+    this.spongehealbutton.setInteractive(false);
+    this.monsterhealbutton.setInteractive(false);
+    this.spongespecialbutton.setInteractive(false);
+    */
+   
+    
   }
 
 function monsterDeath() {
+    //this.spongebutton.setPosition(2000,2000);
     player2.setTint(0xff0000);
     monsterscream.play();
     background.stop();
@@ -597,7 +610,18 @@ function monsterDeath() {
     pwnedimage.alpha = 1;
     player2.y += 30;
     
-    this.physics.pause; 
+    //this.physics.pause; 
+    /*
+    this.spongebutton.setInteractive(false);
+    this.monsterbutton.setInteractive(false);
+    this.spongedefendbutton.setInteractive(false);
+    this.monsterdefendbutton.setInteractive(false);
+    this.spongehealbutton.setInteractive(false);
+    this.monsterhealbutton.setInteractive(false);
+    this.spongespecialbutton.setInteractive(false);
+    */
+   
+
      
 }
 
