@@ -19,10 +19,10 @@ var config = {
     }
 };
 
-var player1, player2;
-var platforms;
-var cursors;
-var gameOver = false;
+let player1, player2;
+let platforms;
+let cursors;
+let gameOver = false;
 var p1turn = true;
 var p2turn = true;
 var p1spec = false;
@@ -205,7 +205,9 @@ function create ()
     
     
         this.spongebutton.on( 'pointerdown', function( pointer ) {
-              
+            if (gameOver){
+                return;
+            }
             if (p1turn){
                 
                 this.scene.cameras.main.shake(100);
@@ -218,6 +220,9 @@ function create ()
     
     
         this.monsterbutton.on( 'pointerdown', function( pointer ) {
+            if (gameOver){
+                return;
+            }
             if (p2turn){
                 this.scene.cameras.main.shake(100);
                 spongedamage.alpha = 1;
@@ -226,6 +231,9 @@ function create ()
         });
 
         this.spongedefendbutton.on( 'pointerdown', function( pointer ) {
+            if (gameOver){
+                return;
+            }
             if (p1turn){
                     this.scene.cameras.main.shake(100);
                     spongedamage.alpha = 1;
@@ -235,6 +243,9 @@ function create ()
         
         
         this.monsterdefendbutton.on( 'pointerdown', function( pointer ) {
+            if (gameOver){
+                return;
+            }
             if (p2turn){
                     this.scene.cameras.main.shake(100);
                     monsterdamage.alpha = 1;
@@ -243,6 +254,9 @@ function create ()
         });
 
         this.spongehealbutton.on( 'pointerdown', function( pointer ) {
+            if (gameOver){
+                return;
+            }
             if (p1turn){
                 this.scene.cameras.main.shake(100);
                 spongeheal.alpha = 1;
@@ -252,6 +266,9 @@ function create ()
             
             
         this.monsterhealbutton.on( 'pointerdown', function( pointer ) {
+            if (gameOver){
+                return;
+            }
             if (p2turn){
                 this.scene.cameras.main.shake(100);
                 monsterheal.alpha = 1;
@@ -260,6 +277,9 @@ function create ()
         });
 
         this.monsterspecialbutton.on( 'pointerdown', function( pointer ) {
+            if (gameOver){
+                return;
+            }
             if (p2turn && !p2spec){
                 this.scene.cameras.main.shake(100);
                 spongedamage.alpha = 1;
@@ -268,6 +288,9 @@ function create ()
         });
         
         this.spongespecialbutton.on( 'pointerdown', function( pointer ) {
+            if (gameOver){
+                return;
+            }
             if (p1turn && !p1spec){
                 this.scene.cameras.main.shake(100);
                 monsterdamage.alpha = 1;
@@ -579,47 +602,25 @@ function monsterSpecialClick(){
 
 
 function spongeDeath () {
-    //this.spongebutton.setPosition(2000,2000);
     player1.setTint(0xff0000);
     spongescream.play();
     background.stop();
     pwnedmonster.play();
     pwnedimage.alpha = 1;
     player1.y += 30;
-    //this.physics.pause;
 
-    /*
-    this.spongebutton.setInteractive(false);
-    this.monsterbutton.setInteractive(false);
-    this.spongedefendbutton.setInteractive(false);
-    this.monsterdefendbutton.setInteractive(false);
-    this.spongehealbutton.setInteractive(false);
-    this.monsterhealbutton.setInteractive(false);
-    this.spongespecialbutton.setInteractive(false);
-    */
-   
     
   }
 
 function monsterDeath() {
-    //this.spongebutton.setPosition(2000,2000);
+    
+    
     player2.setTint(0xff0000);
     monsterscream.play();
     background.stop();
     pwnedsponge.play();
     pwnedimage.alpha = 1;
     player2.y += 30;
-    
-    //this.physics.pause; 
-    /*
-    this.spongebutton.setInteractive(false);
-    this.monsterbutton.setInteractive(false);
-    this.spongedefendbutton.setInteractive(false);
-    this.monsterdefendbutton.setInteractive(false);
-    this.spongehealbutton.setInteractive(false);
-    this.monsterhealbutton.setInteractive(false);
-    this.spongespecialbutton.setInteractive(false);
-    */
    
 
      
