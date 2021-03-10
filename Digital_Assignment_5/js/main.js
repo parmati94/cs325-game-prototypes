@@ -27,11 +27,12 @@ var platforms;
 var cursors;
 var score = 0;
 var level = 1;
+var gamestart = false;
 var gameOver = false;
 var powerup = false;
 var finalLevel = false;
-var scoreText, levelText, powerupText, winText;
-var background, pickup, jump, laugh, scream, yippee, powerupsound, removeplankton, cheering;
+var scoreText, levelText, powerupText, winText, startText;
+var background, pickup, jump, laugh, scream, yippee, powerupsound, removeplankton, cheering, startvoice, winvoice, powerupvoice;
 
 var game = new Phaser.Game(config);
 
@@ -63,6 +64,15 @@ function preload ()
     ]);
     this.load.audio('cheering', [
         'assets/cheering.wav'
+    ]);
+    this.load.audio('startvoice', [
+        'assets/startvoice.wav'
+    ]);
+    this.load.audio('winvoice', [
+        'assets/winvoice.wav'
+    ]);
+    this.load.audio('powerupvoice', [
+        'assets/powerupvoice.wav'
     ]);
 
     this.load.image('sky', 'assets1/bikini_bottom_crop.png');
@@ -102,13 +112,18 @@ function create ()
     powerupsound = this.sound.add('powerupsound');
     removeplankton = this.sound.add('removeplankton');
     cheering = this.sound.add('cheering');
+    startvoice = this.sound.add('startvoice');
+    winvoice = this.sound.add('winvoice');
+    powerupvoice = this.sound.add('powerupvoice');
 
-    background.setVolume(0.4);
+    background.setVolume(0.2);
     pickup.setVolume(0.5);
     jump.setVolume(0.5);
     yippee.setVolume(0.5);
     scream.setVolume(0.5);
     background.play();
+    
+
 
     //  The platforms group contains the ground and the 2 ledges we can jump on
     platforms = this.physics.add.staticGroup();
@@ -122,6 +137,11 @@ function create ()
     platforms.create(50, 250, 'ground');
     platforms.create(750, 220, 'ground');
     platforms.create(-75, 100, 'ground');
+
+    startvoice.play();
+
+    startText = this.add.text(200, 200, 'START!', { fontSize: '150px', fill: '#f53207', fontFamily: 'Akaya Telivigala' });
+    setTimeout(() => { startText.setVisible(false)}, 3000);
 
     // The player and its settings
     player = this.physics.add.sprite(100, 450, 'sponge');
@@ -173,7 +193,7 @@ function create ()
 
     //  The score
     scoreText = this.add.text(330, 550, 'Score: 0', { fontSize: '32px', fill: '#000', fontFamily: 'Akaya Telivigala' });
-    levelText = this.add.text(660, 0, 'Level: '+level, { fontSize: '40px', fill: '#000', fontFamily: 'Akaya Telivigala' });
+    levelText = this.add.text(730, -20, ''+level, { fontSize: '80px', fill: '#000', fontFamily: 'Akaya Telivigala' });
     powerupText = this.add.text(150, 10, 'POWER UP ACTIVATED ', { fontSize: '32px', fill: '#f53207', fontFamily: 'Akaya Telivigala' });
     winText = this.add.text(70, 200, 'YOU WIN! ', { fontSize: '150px', fill: '#f53207', fontFamily: 'Akaya Telivigala' });
     winText.setVisible(false);
@@ -256,6 +276,8 @@ function update ()
     }
 }
 
+
+
 function collectPineapple (player, pineapple)
 {
     pineapple.disableBody(true, true);
@@ -313,6 +335,13 @@ function collectPineapple (player, pineapple)
         powerup.setVelocity(Phaser.Math.Between(-200, 200), 20);
         }
 
+        if (level > 6){
+            var bomb = bombs.create(x, 16, 'bomb');
+            bomb.setBounce(1);
+            bomb.setCollideWorldBounds(true);
+            bomb.setVelocity(Phaser.Math.Between(-200, 200), 20); 
+        }
+
         
 
     }
@@ -324,17 +353,24 @@ function collectPowerup(player, poweruppineapple){
     
     
     powerupsound.play();
+    powerupvoice.play();
     poweruppineapple.disableBody(true, true);
     powerup = true;
     powerupText.setVisible(true);
+    player.setTint(0xfa00ff);
+    setTimeout(() => { powerup = false;}, 6000);
+    setTimeout(() => { powerupText.setVisible(false);}, 6000);
+    setTimeout(() => { player.clearTint();}, 6000);
 
     if (level === 10){
         powerupText.setVisible(false);
+        powerupsound.pause();
+        powerupvoice.pause();
         gameWin();
     }
     
-    setTimeout(() => { powerup = false}, 6000);
-    setTimeout(() => { powerupText.setVisible(false);}, 6000);
+        
+    
 
 }
 
@@ -369,7 +405,7 @@ function newLevel(){
         finalLevel = true;
     }
      
-    levelText.setText('Level: ' +level);
+    levelText.setText('' +level);
 
     if (level === 3)
         sky2.setVisible(true);
@@ -391,8 +427,9 @@ function newLevel(){
 function gameWin(){
     winText.setVisible(true);
     bombs.destroy();
-    yippee.play();
-    cheering.play();
+    winvoice.play();
+
+    setTimeout(() => { cheering.play()}, 1500);
     
     background.stop();
 
