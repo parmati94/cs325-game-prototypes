@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Akaya+Telivigala&display=swap" rel="stylesheet"> 
+<meta charset="utf-8">
+<title>Spongebob: Pineapple Collector</title>
+<style>
+body
+{
+    color: #eaeaea;
+    font-family: "Avenir", Verdana, sans-serif;
+}
+#readme
+{
+    margin-top: 10px;
+}
+</style>
+</head>
+
+<body style="background-color:#000000;">
+<div id="game"></div>
+<div id="readme">
+<h2>Spongebob: Pineapple Collector</h2>
+<ul>
+<li><strong>Originality:</strong>
+My game is unique because it takes a standard arcade game and adds a whole lot of Spongebob-themed flair!  All assets are based around Spongebob themes. <br><br>
+
+</li>
+
+<li><strong>Technical Merit:</strong>
+My game combines several physics elements along with a large amount of audio and visual stimulants, as well as a dynamic scoreboard.
+<br><br>
+</li>
+
+<li><strong>Prototype Postmortem:</strong>
+I learned quite a bit from making this prototype.  Initially, I struggled for hours on end, but eventually really started to understand what was going on and enjoy what I was making.  I learned to create/use sprite sheets, how to alter physics in phaser, main function uses and more.  
+
+The most difficult part of making the game was the initial understanding of how interactions played out within my code.  Having done exclusively backend development prior to this, there was definitely a steep learning curve.  Additionally, sprite sheets were relatively frustrating to work with at times. <br><br>
+
+</li>
+
+<li><strong>Prototype Assets:</strong>
+Assets for the game were not made from scratch, and instead borrowed from a variety of sources.
+<ul>
+<li>Falling pineapple pieces: <a href="https://i5.walmartimages.com/asr/74cda3eb-126a-4f3b-a4da-5a9ac5585a04_1.c62d808036e7f660a98ba49d95cd2230.jpeg">Pineapple</a></li>
+<li>Spongebob sprites: <a href="https://www.deviantart.com/landsverk96/art/SpongeBob-Sprites-792789341">Sprites</a></li>
+<li>Background image: <a href="https://spongebob.fandom.com/wiki/Bikini_Bottom">Bikini Bottom</a></li>
+<li>Plankton: <a href="https://www.pngaaa.com/detail/1226600">Plankton</a></li>
+<li>All sound effects: <a href="https://www.voicy.network/official-soundboards/series/sponge-bob">Spongebob sound effects</a></li>
+<li>The platforms used were borrowed from phaser, and resized/recolored to better fit my game.</li>
+</ul>
+<br>
+</li>
+
+<li><strong>Prototype Closest Other Game:</strong>
+My game most closely resembles "First Game" from Phaser.  A large portion of the code was borrowed and then edited to better suit the goals of my game.  All assets were of course changed, but I also altered certain physics aspects (i.e. gravity), added random events, etc.
+<li>Codebase used: <a href="https://github.com/photonstorm/phaser3-examples/blob/master/public/src/games/firstgame/part10.js">First Game, Part 10</a></li>
+<br><br>
+</li>
+
+<li><strong>High Concept:</strong>
+Spongebob: Pineapple Collector is a short and sweet arcade-style game; the higher the score, the better.  Don't let plankton get you!
+<br><br>
+</li>
+
+<li><strong>Theme:</strong>
+I see this as a "Found family" theme - the gang from Bikini bottom got back together!
+<br><br>
+</li>
+
+<li><strong>Mandated Variety:</strong>
+<ul>
+<li>Input: Keyboard</li>
+<li>Randomness: Some randomness</li>
+<li>Play styles: Collector</li>
+<li>Genre: Arcade (I don't know what to call this) </li>
+</ul>
+<br>
+</li>
+
+<li><strong>Prototype Goal:</strong>
+What game mechanic is this prototype evaluating?
+<br><br>
+</li>
+
+<li><strong>Player Experience Goals:</strong>
+I'd like other players to be able to find greater enjoyment with this game than that of a more standard one (i.e. "First Game" from Phaser), because of it's strong Spongebob themes.  The game makes much heavier use of audio-visual stimuli to accomplish more immersive gameplay.  
+<br><br>
+</li>
+
+<li><strong>Gameplay:</strong>
+The actions a player can perform are relatively simple, and are all based off of the arrow keys on the keyboard.  A player can move left (left arrow), right (right arrow), jump (up arrow), and accelerate down (down arrow).  They are able to use these actions to both pick up pineapple pieces and to avoid being hit by the wild Planktons.  The core mechanic of the game is picking up pineapples from the ground, which increases the players score at +10 per pineapple.  A new Plankton (the enemy to avoid) spawns every time the scene is cleared of pineapples (12 pineapples), and new pineapples also spawn. To keep things more interesting, gravity has been significantly reduced.  
+<br><br>
+</li>
+
+<li><strong>Strategies:</strong>
+An effective strategy in this game would be to hide under a platform to wait for enemy Plankton's to bounce to a more suitable position for the player. 
+<br><br>
+</li>
+
+<li><strong>Story/Setting/Premise:</strong>
+The world my game is set in is well known: Bikini Bottom.  Spongebob, a joyful little sponge, is the protagonist and Plankton is the antagonist.  I believe that the well established backstory of these two characters adds a slight amount of gameplay tension.
+<br><br>
+</li>
+
+<li><strong>Target Audience:</strong>
+The likely demographic of player's of this game are adults that were born in the 90's.  
+<br><br>
+</li>
+
+<li><strong>Play Time:</strong>
+This game could take anywhere from 10 seconds to 3 hours to play (though that is unlikely).  The amount of time spent in the game is dependent on when the player is hit by Plankton.  
+<br><br>
+</li>
+
+</ul>
+</div>
+
+<!-- main.js must come at the end since it expects the HTML to have been created. -->
+<script src="js/main.js" type="module"></script>
+</body>
+</html>

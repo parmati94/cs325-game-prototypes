@@ -1,0 +1,11 @@
+Improvement Ideas:
+
+- Lessen collision radius of Planktons - DONE
+- Keep track of level - DONE
+- Change background on new level - DONE
+- Add powerup drop randomly with pineapples - DONE
+- Add powerup pickup and plankton kill sound - DONE
+- Change game font's to custom - DONE
+- (Minor) Change title of game to something better
+- Add win at pickup of special on level 10 - DONE
+ - 
