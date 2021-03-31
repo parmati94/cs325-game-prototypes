@@ -10,3 +10,4 @@ Improvement Ideas:
 - Add win at pickup of special on level 10 - DONE
  - Add "START!" with text at beginning and "YOU WIN!" text at end - DONE
 - Add voice over for start, win, and powerup - DONE
+- Spawn 2 Planktons per round after level 6 - DONE
