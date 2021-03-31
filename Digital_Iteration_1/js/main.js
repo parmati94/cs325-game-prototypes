@@ -42,9 +42,9 @@ var game = new Phaser.Game(config);
         this.load.audio('winVoice', [
             'assets/winvoice.wav'
         ]);
-        this.load.audio('startVoice', [
-            'assets/startVoice.wav'
-        ]);
+        //this.load.audio('startVoice', [
+         //   'assets/startVoice.wav'
+        //]);
        this.load.image('background', 'assets/background2.png');
        this.load.image('platforms', 'assets/platform1.png');
        this.load.image('ground', 'assets/ground.png');
@@ -56,12 +56,12 @@ var game = new Phaser.Game(config);
         music = this.sound.add('music');
         bounce = this.sound.add('bounce');
         winVoice = this.sound.add('winVoice');
-        startVoice = this.sound.add('startVoice');
+        //startVoice = this.sound.add('startVoice');
 
         bounce.setVolume(0.2);
         music.setVolume(0.3);
         music.play();
-        startVoice.play();
+        //startVoice.play();
 
         
         this.physics.world.setBounds(0, 0, 800, 8000);
