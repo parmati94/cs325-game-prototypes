@@ -65,7 +65,7 @@ var game = new Phaser.Game(config);
 
         
         this.physics.world.setBounds(0, 0, 800, 8000);
-        background = this.add.tileSprite(400, 400, 2000, 50000, 'background');
+        background = this.add.tileSprite(400, -13000, 2000, 30000, 'background');
         background.fixedToCamera = true;
 
         //this.cameras.main.setBounds(0, 0, 800, 10000);
