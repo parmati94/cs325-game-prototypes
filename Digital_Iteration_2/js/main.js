@@ -114,8 +114,11 @@ var game = new Phaser.Game(config);
 
         scoreText = this.add.text(400, 400, 'Score: 0', { fontSize: '45px', fill: '#FFFFFF', fontFamily: 'Akaya Telivigala' });
         scoreText.setVisible(false);
+        
+        winText = this.add.text(70, 200, 'YOU WIN! ', { fontSize: '150px', fill: '#00C9FF', fontFamily: 'Train One' });
+        winText.setVisible(false);
 
-        startText = this.add.text(70, 175, 'SUPER JUMPER!', { fontSize: '100px', fill: '#00C9FF', fontFamily: 'Akaya Telivigala' });
+        startText = this.add.text(50, 175, 'SUPER JUMPER!', { fontSize: '80px', fill: '#00C9FF', fontFamily: 'Train One' });
 
         setTimeout(() => { startText.setVisible(false)}, 3000);
         setTimeout(() => { scoreText.setVisible(true)}, 3000);
@@ -156,9 +159,6 @@ var game = new Phaser.Game(config);
             frameRate: 5,
             repeat: -1
         });
-
-        winText = this.add.text(70, 200, 'YOU WIN! ', { fontSize: '150px', fill: '#00C9FF', fontFamily: 'Akaya Telivigala' });
-        winText.setVisible(false);
 
         
        
