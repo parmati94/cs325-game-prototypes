@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Akaya+Telivigala&display=swap" rel="stylesheet"> 
+<meta charset="utf-8">
+<title>Super Jumper</title>
+<style>
+body
+{
+    color: #eaeaea;
+    font-family: "Avenir", Verdana, sans-serif;
+}
+#readme
+{
+    margin-top: 10px;
+}
+</style>
+</head>
+
+<body style="background-color:#000000;">
+<div id="game"></div>
+<div id="readme">
+<h2>Super Jumper</h2>
+<b>Note:</b> Game must be refreshed once or twice before playing, so that custom font displays correctly.  I'm not sure why this happens.  Additionally, I'd recommend a <b>chromium-based browser</b> be used for the best experience, as it significantly cuts down on the phaser bug where the player gets stuck running.<br>
+<ul>
+<li><strong>Originality:</strong>
+My game is unique because it takes an endless jumper themed game and adds a lot of spacey elements. <br><br>
+
+</li>
+
+<li><strong>Technical Merit:</strong>
+My game uses a vast vertical landscape that is <b>significantly</b> larger than the game window itself.  This is accomplished through the use of repeated tileSprites and camera positioning.  My game includes strong audio and visual elements (including a player spritesheet) to create a cohesive and immersive theme.  Additionally, platform locations are randomly generated each playthrough, making every experience unique.
+<br><br>
+</li>
+
+<li><strong>Prototype Postmortem:</strong>
+I feel like I learned quite a bit from making this prototype.  Initially, I had significant struggles with creating a landscape that went beyond the scope of the game window, which I set to be 800x800.  Ultimately, I learned quite a bit about doing so, and about positioning elements relative to the current position of the player object.     
+
+The most difficult part of making the game was almost certainly controlling the camera and allowing the player to jump vertically beyond the game window.  <br><br>
+
+</li>
+
+<li><strong>Prototype Assets:</strong>
+The large starry background for my game was made completely from scratch using Photoshop.  Also, the intro and win voiceover's were done by me in Audacity. The other assets were sourced from a variety of places:
+<ul>
+<li>Player sprites: <a href="https://www.spriters-resource.com/pc_computer/amongus/sheet/139386/">Sprites</a></li>
+<li>Platforms: <a href="https://similarpng.com/illuminated-fashion-show-podium-realistic-on-transparent-background-png/">Platform</a></li>
+<li>Background music: <a href="http://dig.ccmixter.org/games">Warp Drive</a></li>
+<li>Bounce sound effect: <a href="https://freesound.org/">Sound Effects</a></li>
+</ul>
+<br>
+</li>
+
+<li><strong>Prototype Closest Other Game:</strong>
+My game most closely resembles "Doodle Jump," a game that can be played on mobile devices (Android or iOS).  All code used is completely original and not sourced.  <br><br>
+</a>
+
+<li><strong>High Concept:</strong>
+Redblue Man is lost in a galaxy far far away - help him get back to his home planet in Super Jumper!
+<br><br>
+</li>
+
+
+<li><strong>Prototype Goal:</strong>
+The core mechanic in this game is very much jumping.  Careful adjustments had to be made to physics gravity and the jump velocity to ensure that both a) players are able to reach all randomly generated platforms and b) jumping feels great when moving between platforms.  
+<br><br>
+</li>
+
+<li><strong>Player Experience Goals:</strong>
+I'd like players to have an enjoyable experience playing my game, of course.  Idealy, the game immerses the player with it's audio visual elements, and also creates a building suspense as players jump higher and higher. 
+<br><br>
+</li>
+
+<li><strong>Gameplay:</strong>
+The actions a player can perform are relatively simple, and are all based off of the arrow keys on the keyboard.  A player is able to move left and right, and jumping is an automated movement that happens each time the player touches the ground.  For every platform the player reaches, their score increments by 1.  A player wins when they achieve a score of 100.  At the moment the player is not actually able to die, but I am planning to implement this on the next prototype - the player will die when he falls off of the screen.   
+<br><br>
+</li>
+
+<li><strong>Strategies:</strong>
+An effective strategy in this game is to use quick turns with jump momentum whenever possible, and to hit the very corners of platforms to attempt longer bounces.<br><br>
+</li>
+
+<li><strong>Story/Setting/Premise:</strong>
+My game takes place in a dark and unfamiliar galaxy.  The protagonist, Red-Blue Man, has lost his way home after searching the galaxies for new life-forms.  In the game, he finds his way home by completing all 100 jumps to the top of the map.<br> 
+
+I believe that the combination of the backstory with the audio and visual elements creates a unique and interesting experience for players.
+<br><br>
+</li>
+
+<li><strong>Target Audience:</strong>
+The likely demographic of player's of this game anyone from the ages of 6 to 50 years old.  
+<br><br>
+</li>
+
+<li><strong>Play Time:</strong>
+This game should take around 3 to 5 minutes to complete.  This could be significantly extended by the player continuously missing jumps; there is no set time limit to get to the top. 
+<br><br>
+</li>
+
+</ul>
+</div>
+
+<!-- main.js must come at the end since it expects the HTML to have been created. -->
+<script src="js/main.js" type="module">
+	
+	 window.onbeforeunload = function () {
+            window.scrollTo(0, 0);
+        }; 
+
+</script>
+</body>
+</html>
