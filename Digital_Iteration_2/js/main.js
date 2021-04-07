@@ -25,7 +25,7 @@ var platforms, superplatforms, ground;
 var cursors;
 var score = 0;
 var scoreText;
-var winText, startText;
+var winText, startText, halfText;
 var playerposition, playerposition2;
 var gameOver = false;
 var bounce, music, winVoice, startVoice, superBounce, falling, tryAgain;
@@ -76,7 +76,7 @@ var game = new Phaser.Game(config);
         tryAgain = this.sound.add('tryAgain');
 
         bounce.setVolume(0.2);
-        music.setVolume(0.3);
+        music.setVolume(0.2);
         music.play();
         startVoice.play();
 
@@ -119,6 +119,7 @@ var game = new Phaser.Game(config);
         winText.setVisible(false);
 
         startText = this.add.text(50, 175, 'SUPER JUMPER!', { fontSize: '80px', fill: '#00C9FF', fontFamily: 'Train One' });
+        halfText = this.add.text(50, -9375, 'HALFWAY THERE!', { fontSize: '80px', fill: '#00C9FF', fontFamily: 'Train One' });
 
         setTimeout(() => { startText.setVisible(false)}, 3000);
         setTimeout(() => { scoreText.setVisible(true)}, 3000);
@@ -285,7 +286,7 @@ var game = new Phaser.Game(config);
 
         if (score >= 100){
             winVoice.play();
-            winText.x = player.body.position.x - 275; 
+            winText.x = player.body.position.x - 332; 
             winText.y = player.body.position.y - 175;
             winText.setVisible(true);
             gameOver = true;
@@ -301,7 +302,7 @@ var game = new Phaser.Game(config);
 
         if (score == 100){
             winVoice.play();
-            winText.x = player.body.position.x - 275; 
+            winText.x = player.body.position.x - 332; 
             winText.y = player.body.position.y - 175;
             winText.setVisible(true);
             gameOver = true;
