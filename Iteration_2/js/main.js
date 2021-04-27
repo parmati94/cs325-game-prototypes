@@ -3,7 +3,7 @@ import "./phaser.js";
 var config = {
     type: Phaser.AUTO,
     parent: 'game',
-    width: 800,
+    width: 1200,
     height: 800,
     physics: {
         default: 'arcade',
@@ -24,10 +24,11 @@ var player;
 var platforms, superplatforms, ground;
 var cursors;
 var score = 0;
-var scoreText;
+var scoreText, scoreText2;
 var winText, startText, halfText;
 var playerposition, playerposition2;
 var gameOver = false;
+var oxygen;
 var bounce, music, winVoice, startVoice, superBounce, falling, tryAgain;
 var highjump = false;
 var wasSuper = false;
@@ -57,9 +58,10 @@ var game = new Phaser.Game(config);
             'assets/tryagain.wav'
         ]);
        this.load.image('background', 'assets/background2.png');
-       this.load.image('platforms', 'assets/platform1.png');
+       this.load.image('platforms', 'assets/platform.png');
        this.load.image('superplatforms', 'assets/superplatform.png');
        this.load.image('ground', 'assets/ground.png');
+       this.load.image('oxygen', 'assets/oxygen.png');
        this.load.spritesheet('character', 'assets/spritesheet.png', { frameWidth: 86, frameHeight: 117 });
     }
     
@@ -70,7 +72,7 @@ var game = new Phaser.Game(config);
         };
         bounce = this.sound.add('bounce');
         winVoice = this.sound.add('winVoice');
-        startVoice = this.sound.add('startVoice');
+        //startVoice = this.sound.add('startVoice');
         superBounce = this.sound.add('superBounce');
         falling = this.sound.add('falling');
         tryAgain = this.sound.add('tryAgain');
@@ -78,12 +80,15 @@ var game = new Phaser.Game(config);
         bounce.setVolume(0.2);
         music.setVolume(0.2);
         music.play();
-        startVoice.play();
+        //startVoice.play();
 
         
-        this.physics.world.setBounds(0, 0, 800, 8000);
-        background = this.add.tileSprite(400, -13000, 2000, 30000, 'background');
+        this.physics.world.setBounds(0, -1000, 8000, 2500);
+        
+        background = this.add.image(4000, 200, 'background')
         background.fixedToCamera = true;
+
+        this.cameras.main.setZoom(0.3); //default: 1.3
 
         //this.cameras.main.setBounds(0, 0, 800, 10000);
 
@@ -93,6 +98,12 @@ var game = new Phaser.Game(config);
         platforms = this.physics.add.group({
             immovable: true,
             allowGravity: false
+        });
+
+        oxygen = this.physics.add.group({
+            //immovable: true,
+            //allowGravity: false
+            
         });
 
         superplatforms = this.physics.add.group({
@@ -108,15 +119,18 @@ var game = new Phaser.Game(config);
         });
         
 
-        ground.create(400, 800, 'ground').setScale(5).refreshBody();
-        
-        createPlatforms();
+        ground.create(4000, 1000, 'ground').setScale(1).refreshBody();
 
-        scoreText = this.add.text(400, 400, 'Score: 0', { fontSize: '45px', fill: '#FFFFFF', fontFamily: 'Akaya Telivigala' });
-        scoreText.setVisible(false);
+        createPlatforms();
+        createOxygen();
         
-        winText = this.add.text(70, 200, 'YOU WIN! ', { fontSize: '150px', fill: '#00C9FF', fontFamily: 'Train One' });
-        winText.setVisible(false);
+        
+
+        scoreText = this.add.text(400, 400, 'Score: 0', { fontSize: '80px', fill: '#FFFFFF', fontFamily: 'Akaya Telivigala' });
+        scoreText2 = this.add.text(400, 400, 'Score: 0', { fontSize: '80px', fill: '#FFFFFF', fontFamily: 'Akaya Telivigala' });
+        
+        //winText = this.add.text(70, 200, 'YOU WIN! ', { fontSize: '150px', fill: '#00C9FF', fontFamily: 'Train One' });
+        //winText.setVisible(false);
 
         startText = this.add.text(50, 175, 'SUPER JUMPER!', { fontSize: '80px', fill: '#00C9FF', fontFamily: 'Train One' });
         halfText = this.add.text(50, -9375, 'HALFWAY THERE!', { fontSize: '80px', fill: '#00C9FF', fontFamily: 'Train One' });
@@ -125,17 +139,17 @@ var game = new Phaser.Game(config);
         setTimeout(() => { scoreText.setVisible(true)}, 3000);
 
         player = this.physics.add.sprite(400, 600, 'character');
-        playerposition = player.body.position.y;
-        playerposition2 = player.body.position.y;
   
 
         player.setBounce(0.2);
+        player.setCollideWorldBounds(true);
         //player.setCollideWorldBounds(true);
 
         this.cameras.main.startFollow(player, true, 0.8, 0.8);
-        this.physics.add.collider(player, platforms, hitPlatforms, null, this);
-        this.physics.add.collider(player, superplatforms, hitSuperPlatforms, null, this);
+        this.physics.add.collider(player, platforms, hitPlatforms, null, this);;
         this.physics.add.collider(player, ground);
+        this.physics.add.collider(oxygen, platforms);
+        this.physics.add.collider(oxygen, ground);
 
         
         cursors = this.input.keyboard.createCursorKeys();
@@ -167,39 +181,26 @@ var game = new Phaser.Game(config);
     
     function update() {
 
+        scoreText.setText('Position x: ' + player.body.position.x); 
+        scoreText2.setText('Position y: ' + player.body.position.y); 
+        scoreText.x = player.body.position.x - 2000; 
+        scoreText.y = player.body.position.y - 1000;
+        scoreText2.x = player.body.position.x - 2000; 
+        scoreText2.y = player.body.position.y - 800;
 
-        scoreText.x = player.body.position.x - 300; 
-        scoreText.y = player.body.position.y - 320;
 
         if (gameOver){
             return;
         }    
 
-        if (player.body.position.y <= (playerposition - 200)){
-            score += 1;
-            scoreText.setText('Score: ' + score);
-            playerposition -= 200;
-        }
-
-        if (player.body.position.y > (playerposition2 + 400)){
-            playerposition = 600;
-            playerposition2 = 600;
-            falling.play();
-            restart();
-        }
-
-        
-
-        if (cursors.left.isDown)
+    if (cursors.left.isDown)
     {
-
-    
-            player.setVelocityX(-320);
+            player.setVelocityX(-500);
             player.anims.play('left', true);
     }
     else if (cursors.right.isDown)
     {
-            player.setVelocityX(320);
+            player.setVelocityX(500);
             player.anims.play('right', true);
         
     }
@@ -210,74 +211,25 @@ var game = new Phaser.Game(config);
         player.anims.play('turn');
     }
 
-    if (player.body.touching.down)
+    if (cursors.up.isDown && player.body.touching.down)
     {
             if (highjump){
                 player.setVelocityY(-1075); 
                 superBounce.play();
             }
             else{
-                player.setVelocityY(-480); 
+                player.setVelocityY(-650); 
                 bounce.play();
             }
             
         
     }
-        
+    if (cursors.down.isDown){
+        player.setVelocityY(600);     
     }
-
-    function createPlatforms(){
-
-        var i;
-        var y = 800;
-
-        for (i = 0; i < 100; i++){
-            var prevRand;
-            var randx = Math.random() * (800 - 100) + 100;
-            
-            var randNum = Math.random() * (15 - 1) + 1;
-            y -= 200;
-
-
-            if (randNum > 2){
-                if (wasSuper && (prevRand > randx + 150 || prevRand < randx - 150)){
-                    platforms.create(randx, y, 'platforms');
-                    wasSuper = false;
-                }
-                else if (!wasSuper){
-                    platforms.create(randx, y, 'platforms');
-                    
-                }
-                else{
-                    if (randx < 400){
-                        randx += 150;
-                    }
-                    else{
-                        randx -= 150;
-                    }
-
-                    platforms.create(randx, y, 'platforms'); 
-                    wasSuper = false;  
-                }
-            }
-            else{
-                superplatforms.create(randx, y, 'superplatforms');
-                prevRand = randx;
-                wasSuper = true;
-            }
-            
-
-        } 
-
-
-        //platforms.children.iterate(function (child) {
-
-        //    child.body.velocity.x = -200;
+}
         
-       // }); 
-
-       
-    }
+    
 
     function hitPlatforms(){
 
@@ -294,21 +246,36 @@ var game = new Phaser.Game(config);
         }
     }
 
-    
-    function hitSuperPlatforms(){
+    function createPlatforms(){
+        platforms.create(800, 500, 'platforms' ).setScale(3);
+        platforms.create(1300, 100, 'platforms' ).setScale(3.5);
+        platforms.create(1300, -200, 'platforms' ).setScale(2);
 
-        playerposition2 = player.body.position.y + 200;
-        highjump = true;
+        platforms.create(2400, 500, 'platforms' ).setScale(3);
+        platforms.create(2900, 100, 'platforms' ).setScale(3.5);
+        platforms.create(2400, -200, 'platforms' ).setScale(2);
 
-        if (score == 100){
-            winVoice.play();
-            winText.x = player.body.position.x - 332; 
-            winText.y = player.body.position.y - 175;
-            winText.setVisible(true);
-            gameOver = true;
-            this.physics.pause();
-        }
+        platforms.create(5500, 500, 'platforms' ).setScale(3);
+        platforms.create(4700, 100, 'platforms' ).setScale(3.5);
+        platforms.create(4300, -200, 'platforms' ).setScale(2);
+
+
+
     }
+
+    function createOxygen(){
+        oxygen.create(600, 675, 'oxygen').setScale(0.7).setBounce(0.6).refreshBody();
+        oxygen.create(1235, 675, 'oxygen').setScale(0.7).setBounce(0.6).refreshBody();
+        oxygen.create(423, 290, 'oxygen').setScale(0.7).setBounce(0.6).refreshBody();
+        oxygen.create(700, 290, 'oxygen').setScale(0.7).setBounce(0.6).refreshBody();
+        oxygen.create(1235, -100, 'oxygen').setScale(0.7).setBounce(0.6).refreshBody();
+        oxygen.create(1400, -100, 'oxygen').setScale(0.7).setBounce(0.6).refreshBody();
+        oxygen.create(1050, -380, 'oxygen').setScale(0.7).setBounce(0.6).refreshBody();
+        oxygen.create(1180, -380, 'oxygen').setScale(0.7).setBounce(0.6).refreshBody();
+        oxygen.create(1350, -380, 'oxygen').setScale(0.7).setBounce(0.6).refreshBody();
+    }
+
+    
 
     function restart(){
         
