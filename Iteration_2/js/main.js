@@ -88,7 +88,7 @@ var game = new Phaser.Game(config);
         background = this.add.image(4000, 200, 'background')
         background.fixedToCamera = true;
 
-        this.cameras.main.setZoom(0.3); //default: 1.3
+        this.cameras.main.setZoom(1.3); //default: 1.3
 
         //this.cameras.main.setBounds(0, 0, 800, 10000);
 
