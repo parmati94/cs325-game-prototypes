@@ -6,7 +6,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Train+One&display=swap" rel="stylesheet"> 
 <meta charset="utf-8">
-<title>Super Jumper</title>
+<title>The Final Escape</title>
 <style>
 body
 {
@@ -23,85 +23,66 @@ body
 <body style="background-color:#000000;">
 <div id="game"></div>
 <div id="readme">
-<h2>Super Jumper</h2>
+<h2>Super Jumper 2: The Final Escape</h2>
 <b>Note:</b> Game must be refreshed once or twice before playing, so that custom font displays correctly.  I'm not sure why this happens.  Additionally, I'd recommend a <b>chromium-based browser</b> be used for the best experience, as it significantly cuts down on the phaser bug where the player gets stuck running.<br>
 <ul>
 <li><strong>Originality:</strong>
-My game is unique because it takes an endless jumper themed game and adds a lot of spacey elements. <br><br>
+My game is unique because it side-scrolling game, adds many space elements, and continues the story of my previous game. <br><br>
 
-</li>
 
 <li><strong>Technical Merit:</strong>
-My game uses a vast vertical landscape that is <b>significantly</b> larger than the game window itself.  This is accomplished through the use of repeated tileSprites and camera positioning.  My game includes strong audio and visual elements (including a player spritesheet) to create a cohesive and immersive theme.  Additionally, platform locations are randomly generated each playthrough, making every experience unique. <br> <br>
-
-<b>UPDATE:</b> With this new iteration of the game, several things were added to really make the game a complete game.  The most notable technical improvement is that the player is able to die by falling - this is achieved by frequently recording the position of the player and resetting the player to base position when they drop beyond the scope of the camera.  Additionally, the game now actively tracks a boolean to check if the player has touched a "highjump" platform.   
+My game uses a vast horizontal landscape that is <b>significantly</b> larger than the game window itself.  This is accomplished through the use of repeated tileSprites and camera positioning.  My game includes strong audio and visual elements (including a player spritesheet) to create a cohesive and immersive theme.  Also, meteors are generated on a half second basis using a random x variable.  Finally, i've created a seamless playthrough experience - when the player is hit by an asteroid, the game simply restarts instead of ending (player position resets, all relevant objects are iterated through, removed, and re-placed).
 <br><br>
 </li>
 
 <li><strong>Prototype Postmortem:</strong>
-I feel like I learned quite a bit from making this prototype.  Initially, I had significant struggles with creating a landscape that went beyond the scope of the game window, which I set to be 800x800.  Ultimately, I learned quite a bit about doing so, and about positioning elements relative to the current position of the player object.     
-
-The most difficult part of making the game was almost certainly controlling the camera and allowing the player to jump vertically beyond the game window.  <br><br>
+I feel like I learned quite a bit from making this prototype.  While I had previously worked with the camera and with objects beyond the scope of the game window, this prototype helped me become extremely familiar with the precise placement of objects. <br><br>
 
 </li>
 
 <li><strong>Prototype Assets:</strong>
-The large starry background for my game was made completely from scratch using Photoshop.  Also, the intro, win, and "try again" voiceover's were done by me in Audacity. The other assets were sourced from a variety of places:
+The large starry background for my game and the platforms were made completely from scratch using Photoshop.  Also the win and "try again" voiceover's were done by me in Audacity. The other assets were sourced from a variety of places:
 <ul>
 <li>Player sprites: <a href="https://www.spriters-resource.com/pc_computer/amongus/sheet/139386/">Sprites</a></li>
-<li>Platforms: <a href="https://similarpng.com/illuminated-fashion-show-podium-realistic-on-transparent-background-png/">Platform</a></li>
-<li>Background music: <a href="http://dig.ccmixter.org/games">Warp Drive</a></li>
-<li>Bounce/Falling/HighJump sound effect: <a href="https://freesound.org/">Sound Effects</a></li>
+<li>Background music: <a href="https://www.fesliyanstudios.com/royalty-free-music/">Ready to Fight</a></li>
+<li>Bounce, pickup, breathe, meteor and hit sound effects: <a href="https://freesound.org/">Sound Effects</a></li>
+<li>Oxygen, Meteors, and end-game light: <a href="https://pngtree.com/">PNGTree</a></li>
 </ul>
 <br>
 </li>
 
 <li><strong>Prototype Closest Other Game:</strong>
-My game most closely resembles "Doodle Jump," a game that can be played on mobile devices (Android or iOS).  All code used is completely original and not sourced.  <br><br>
-
-<b>UPDATE</b>: Link to previous iteration:  <a href="https://parmati94.github.io/cs325-game-prototypes/Digital_Iteration_1/">Super Jumper (1st Iteration)</a><br><br>
-
-Several notable changes were made from the last iteration of the game:
-<ul>
-<li>Added ability for player to die when falling past the scope of the camera.  On death, the game restarts in a seamless fashion; instead of the game ending, the player's position is simply reset to their starting position.  The score is also reset.   </li>
-<li>Added falling sound when player falls to their death.</li>
-<li>Added "try again" sound when player's position is reset on death.</li>
-<li>Added special "highjump" platforms - these use a modified platform asset and generate randomly along with the other randomly generated platforms, with a <20% chance of spawning.</li>
-<li>Added new, more fitting custom game font for "START" and "YOU WIN!" text.</li>
-<li>Added "Halfway there!" text at score 50 to notify the player that they are halfway to completion.</li><br>
-</ul>
-
-Overall, I believe these changes made the game into a more complete experience, especially with the addition of deaths and special platforms. 
+My game doesn't very closely resemble any other game, though you could make a case for it being similar to a classic Mario game since the game camera scrolls to the right and left.
 </li>
 <br><br>
 
 <li><strong>High Concept:</strong>
-Redblue Man is lost in a galaxy far far away - help him get back to his home planet in Super Jumper!
+Redblue Man is lost in a galaxy far far away - help him get back to his home planet in Super Jumper 2: The Final Escape!
 <br><br>
 </li>
 
 
 <li><strong>Prototype Goal:</strong>
-The core mechanic in this game is very much jumping.  Careful adjustments had to be made to physics gravity and the jump velocity to ensure that both a) players are able to reach all randomly generated platforms and b) jumping feels great when moving between platforms.  
+The core mechanic in this game is moving and jumping.  Careful adjustments had to be made to physics gravity and the jump velocity to ensure that both a) players are able to reach all platforms and b) jumping feels great when moving between platforms to pick up oxygen tanks.  
 <br><br>
 </li>
 
 <li><strong>Player Experience Goals:</strong>
-I'd like players to have an enjoyable experience playing my game, of course.  Idealy, the game immerses the player with it's audio visual elements, and also creates a building suspense as players jump higher and higher. 
+I'd like players to have an enjoyable experience playing my game, of course.  Idealy, the game immerses the player with it's audio visual elements, and also creates a building suspense as players collect more oxygen tanks and get closer to victory. 
 <br><br>
 </li>
 
 <li><strong>Gameplay:</strong>
-The actions a player can perform are relatively simple, and are all based off of the arrow keys on the keyboard.  A player is able to move left and right, and jumping is an automated movement that happens each time the player touches the ground.  For every platform the player reaches, their score increments by 1.  A player wins when they achieve a score of 100.  At the moment the player is not actually able to die, but I am planning to implement this on the next prototype - the player will die when he falls off of the screen.   
+The actions a player can perform are relatively simple, and are all based off of the arrow keys on the keyboard.  A player is able to move left, right, and they are able jump. The player must collect all 25 oxygen tanks on the map while avoiding the incoming meteors.  After all oxygen tanks are collected, the exit (a large circle of light) appears on the right edge of the map - once the player reaches this, they win the game.  If the player is hit by an asteroid, the game restarts.      
 <br><br>
 </li>
 
 <li><strong>Strategies:</strong>
-An effective strategy in this game is to use quick turns with jump momentum whenever possible, and to hit the very corners of platforms to attempt longer bounces.<br><br>
+An effective strategy in this game might be to spend more time at the top-most platforms of the map.  This enables the player to better see incoming meteors.<br><br>
 </li>
 
 <li><strong>Story/Setting/Premise:</strong>
-My game takes place in a dark and unfamiliar galaxy.  The protagonist, Red-Blue Man, has lost his way home after searching the galaxies for new life-forms.  In the game, he finds his way home by completing all 100 jumps to the top of the map.<br> 
+My game takes place in a dark and unfamiliar galaxy.  The protagonist, Red-Blue Man, has lost his way home after searching the galaxies for new life-forms.  In the game, he finds his way home by collecting all of the oxygen on the map and escaping to the white light.<br> 
 
 I believe that the combination of the backstory with the audio and visual elements creates a unique and interesting experience for players.
 <br><br>
@@ -113,7 +94,7 @@ The likely demographic of player's of this game anyone from the ages of 6 to 50 
 </li>
 
 <li><strong>Play Time:</strong>
-This game should take around 3 to 5 minutes to complete.  This could be significantly extended by the player continuously missing jumps; there is no set time limit to get to the top. 
+This game should take around 3 to 5 minutes to complete.  This could be significantly extended by the player continuously being hit by asteroids 
 <br><br>
 </li>
 
