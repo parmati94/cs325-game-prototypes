@@ -369,7 +369,7 @@ var game = new Phaser.Game(config);
         score++;
         scoreText.setText(`${score}/25 oxygens`);
 
-        if (score > 4){
+        if (score > 24){
             light.create(7500, 700, 'light').setScale(3).refreshBody();
             warning.play();
             rumble.play({ loop: 1 });
