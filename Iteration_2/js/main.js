@@ -28,9 +28,10 @@ var scoreText, scoreText2;
 var winText, startText, warningText;
 var playerposition, playerposition2;
 var gameOver = false;
+var ending = false;
 var oxygen, meteor;
 var bounce, music, winVoice, startVoice, whoosh, falling, tryAgain, hit;
-var pickup, breathe, cheering, warning;
+var pickup, breathe, cheering, warning, rumble;
 var highjump = false;
 var wasSuper = false;
 var timer = Phaser.Time.TimerEvent;
@@ -74,6 +75,9 @@ var game = new Phaser.Game(config);
         this.load.audio('warning', [
             'assets/warning.wav'
         ]);
+        this.load.audio('rumble', [
+            'assets/rumble.wav'
+        ]);
        this.load.image('background', 'assets/background2.png');
        this.load.image('platforms', 'assets/platform.png');
        this.load.image('superplatforms', 'assets/superplatform.png');
@@ -107,6 +111,8 @@ var game = new Phaser.Game(config);
         breathe = this.sound.add('breathe');
         cheering = this.sound.add('cheering');
         warning = this.sound.add('warning');
+        rumble = this.sound.add('rumble');
+
 
         bounce.setVolume(0.2);
         music.setVolume(0.3);
@@ -226,6 +232,12 @@ var game = new Phaser.Game(config);
     }
     
     function update() {
+
+        if (ending){
+            this.cameras.main.shake(10, 0.009);
+        }
+
+        
 
         /**
         scoreText.setText('Position x: ' + player.body.position.x); 
@@ -360,7 +372,10 @@ var game = new Phaser.Game(config);
         if (score > 24){
             light.create(7500, 700, 'light').setScale(3).refreshBody();
             warning.play();
+            rumble.play({ loop: 1 });
             warningText.setVisible(true);
+            ending = true;
+            
             setTimeout(() => { warningText.setVisible(false)}, 2500);
 
         }
@@ -387,6 +402,8 @@ var game = new Phaser.Game(config);
         scoreText.setText(`${score}/25 oxygens`);
         hit.play();
         tryAgain.play();
+        rumble.stop();
+        ending = false;
         player.body.position.y = 600;
         player.body.position.x = 200;
         oxygen.children.iterate(function (child) {
@@ -406,6 +423,7 @@ var game = new Phaser.Game(config);
 
     function hitLight(){
         music.stop();
+        rumble.stop();
         winVoice.play();
         winText.x = player.body.position.x - 332; 
         winText.y = player.body.position.y - 175;
